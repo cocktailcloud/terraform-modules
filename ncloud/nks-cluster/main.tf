@@ -73,6 +73,7 @@ resource "ncloud_login_key" "loginkey" {
 
 resource "ncloud_nks_cluster" "cluster" {
   name                 = var.cluster_name
+  hypervisor_code      = var.hypervisor_code
   cluster_type         = var.cluster_type
   login_key_name       = ncloud_login_key.loginkey.key_name
   lb_private_subnet_no = ncloud_subnet.private_lb_subnet.id

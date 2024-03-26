@@ -18,10 +18,23 @@ variable "cluster_name" {
 
 # ---------------------------------------------------------------------------------------------------------------------
 # REQUIRED PARAMETERS
+# (Optional) Hypervisor code. XEN(Default), RHV, KVM
+# ---------------------------------------------------------------------------------------------------------------------
+variable "hypervisor_code" {
+  description = "(Optional) Hypervisor code. XEN(Default), RHV, KVM"
+  default     = "XEN"
+  type        = string
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# REQUIRED PARAMETERS
 # You must provide a value for each of these parameters.
 #   * XEN / RHV
 #   * 10 ea : SVR.VNKS.STAND.C002.M008.NET.SSD.B050.G002
 #   * 50 ea : SVR.VNKS.STAND.C004.M016.NET.SSD.B050.G002
+#   * KVM
+#   * 10 ea : SVR.VNKS.STAND.C002.M008.G003
+#   * 50 ea : SVR.VNKS.STAND.C004.M016.G003
 # ---------------------------------------------------------------------------------------------------------------------
 variable "cluster_type" {
   description = "Cluster type. Maximum number of nodes."

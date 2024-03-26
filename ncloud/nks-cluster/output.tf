@@ -92,9 +92,18 @@ output "ncloud_nks_cluster_lb_public_subnet_subnet" {
   sensitive   = false
 }
 
+output "ncloud_nks_cluster_hypervisor_code" {
+  description = "(Optional) Hypervisor code. XEN(Default), RHV, KVM"
+  value       = ncloud_nks_cluster.cluster.hypervisor_code
+  sensitive   = false
+}
+
 # XEN / RHV
 # 10 ea : SVR.VNKS.STAND.C002.M008.NET.SSD.B050.G002
 # 50 ea : SVR.VNKS.STAND.C004.M016.NET.SSD.B050.G002
+# KVM
+# 10 ea : SVR.VNKS.STAND.C002.M008.G003
+# 50 ea : SVR.VNKS.STAND.C004.M016.G003
 output "ncloud_nks_cluster_cluster_type" {
   description = "Cluster type. Maximum number of nodes XEN / RHV"
   value       = ncloud_nks_cluster.cluster.cluster_type

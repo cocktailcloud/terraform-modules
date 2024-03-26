@@ -5,7 +5,7 @@ resource "ncloud_vpc" "vpc" {
 
 resource "ncloud_subnet" "node_subnet" {
   vpc_no         = ncloud_vpc.vpc.id
-  subnet         = cidrsubnet(ncloud_vpc.vpc.ipv4_cidr_block, 8, 1)
+  subnet         = cidrsubnet(ncloud_vpc.vpc.ipv4_cidr_block, 2, 64)
   zone           = var.cluster_zone
   network_acl_no = ncloud_vpc.vpc.default_network_acl_no    #(Required) Network ACL의 ID
   subnet_type    = "PRIVATE"
@@ -25,7 +25,7 @@ resource "ncloud_route_table_association" "route_table_subnet" {
 
 resource "ncloud_subnet" "private_lb_subnet" {
   vpc_no         = ncloud_vpc.vpc.id
-  subnet         = cidrsubnet(ncloud_vpc.vpc.ipv4_cidr_block, 8, 0)
+  subnet         = cidrsubnet(ncloud_vpc.vpc.ipv4_cidr_block, 2, 0)
   zone           = var.cluster_zone
   network_acl_no = ncloud_vpc.vpc.default_network_acl_no
   subnet_type    = "PRIVATE"
@@ -34,7 +34,7 @@ resource "ncloud_subnet" "private_lb_subnet" {
 
 resource "ncloud_subnet" "public_lb_subnet" {
   vpc_no         = ncloud_vpc.vpc.id
-  subnet         = cidrsubnet(ncloud_vpc.vpc.ipv4_cidr_block, 8, 2)
+  subnet         = cidrsubnet(ncloud_vpc.vpc.ipv4_cidr_block, 2, 128)
   zone           = var.cluster_zone
   network_acl_no = ncloud_vpc.vpc.default_network_acl_no
   subnet_type    = "PUBLIC"
@@ -44,7 +44,7 @@ resource "ncloud_subnet" "public_lb_subnet" {
 
 resource "ncloud_subnet" "nat_subnet" {
   vpc_no         = ncloud_vpc.vpc.id
-  subnet         = cidrsubnet(ncloud_vpc.vpc.ipv4_cidr_block, 8, 3)
+  subnet         = cidrsubnet(ncloud_vpc.vpc.ipv4_cidr_block, 2, 192)
   zone           = var.cluster_zone
   network_acl_no = ncloud_vpc.vpc.default_network_acl_no
   #(Required) Network ACL의 ID

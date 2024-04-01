@@ -4,6 +4,7 @@ resource "ncloud_vpc" "vpc" {
 }
 
 resource "ncloud_subnet" "node_subnet" {
+  name           = "${var.cluster_name}-nodes"
   vpc_no         = ncloud_vpc.vpc.id
   subnet         = cidrsubnet(ncloud_vpc.vpc.ipv4_cidr_block, 2, 1)
   zone           = var.cluster_zone
@@ -13,6 +14,7 @@ resource "ncloud_subnet" "node_subnet" {
 }
 
 resource "ncloud_route_table" "route_table" {
+  name           = "${var.cluster_name}-rt"
   vpc_no                = ncloud_vpc.vpc.id
   supported_subnet_type = "PRIVATE"
 }
@@ -24,6 +26,7 @@ resource "ncloud_route_table_association" "route_table_subnet" {
 }
 
 resource "ncloud_subnet" "private_lb_subnet" {
+  name           = "${var.cluster_name}-prls"
   vpc_no         = ncloud_vpc.vpc.id
   subnet         = cidrsubnet(ncloud_vpc.vpc.ipv4_cidr_block, 2, 0)
   zone           = var.cluster_zone
@@ -33,6 +36,7 @@ resource "ncloud_subnet" "private_lb_subnet" {
 }
 
 resource "ncloud_subnet" "public_lb_subnet" {
+  name           = "${var.cluster_name}-pbls"
   vpc_no         = ncloud_vpc.vpc.id
   subnet         = cidrsubnet(ncloud_vpc.vpc.ipv4_cidr_block, 2, 2)
   zone           = var.cluster_zone
@@ -43,6 +47,7 @@ resource "ncloud_subnet" "public_lb_subnet" {
 
 
 resource "ncloud_subnet" "nat_subnet" {
+  name           = "${var.cluster_name}-nats"
   vpc_no         = ncloud_vpc.vpc.id
   subnet         = cidrsubnet(ncloud_vpc.vpc.ipv4_cidr_block, 2, 3)
   zone           = var.cluster_zone
@@ -53,6 +58,7 @@ resource "ncloud_subnet" "nat_subnet" {
 }
 
 resource "ncloud_nat_gateway" "nat_gateway" {
+  name      = "${var.cluster_name}-natgw"
   vpc_no    = ncloud_vpc.vpc.id
   subnet_no = ncloud_subnet.nat_subnet.id
   zone      = var.cluster_zone

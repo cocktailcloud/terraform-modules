@@ -75,6 +75,7 @@ resource "ncloud_route" "kubernetes_route" {
 
 resource "ncloud_login_key" "loginkey" {
   key_name = var.cluster_name
+  depends_on = [ncloud_route.kubernetes_route]
 }
 
 resource "ncloud_nks_cluster" "cluster" {

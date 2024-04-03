@@ -91,6 +91,7 @@ resource "ncloud_nks_cluster" "cluster" {
   log {
     audit = var.audit_enabled
   }
+  depends_on = [ncloud_login_key.loginkey]
 }
 
 data "ncloud_nks_kube_config" "kube_config" {

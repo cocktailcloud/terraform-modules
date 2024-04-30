@@ -41,9 +41,6 @@ resource "ncloud_nks_node_pool" "node_pool" {
     min = var.autoscale_min
     max = var.autoscale_max
   }
-  lifecycle {
-    ignore_changes = var.ignore_changes_field
-  }
 }
 
 data "ncloud_nks_node_pool" "node_pool"{

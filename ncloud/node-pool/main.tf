@@ -28,11 +28,6 @@
 #   }
 # }
 
-variable "ignore_changes_field" {
-  type = list
-  default = var.autoscale_enabled ? [node_count] : []
-}
-
 resource "ncloud_nks_node_pool" "node_pool" {
   cluster_uuid = var.cluster_uuid
   node_pool_name = var.node_pool_name
@@ -47,7 +42,7 @@ resource "ncloud_nks_node_pool" "node_pool" {
     max = var.autoscale_max
   }
   lifecycle {
-    ignore_changes = var.ignore_changes_field
+    ignore_changes = var.autoscale_enabled ? [node_count] : []
   }
 }
 

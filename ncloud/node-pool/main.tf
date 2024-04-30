@@ -28,11 +28,6 @@
 #   }
 # }
 
-variable "ignore_changes_field" {
-  type = list(any)
-  default = var.autoscale_enabled ? [node_count] : []
-}
-
 resource "ncloud_nks_node_pool" "node_pool" {
   cluster_uuid = var.cluster_uuid
   node_pool_name = var.node_pool_name

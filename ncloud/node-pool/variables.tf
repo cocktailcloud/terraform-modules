@@ -91,3 +91,9 @@ variable release_version {
   description = "release_version info."
   type        = string
 }
+
+
+variable "ignore_changes_field" {
+  type = list(any)
+  default = var.autoscale_enabled ? [node_count] : []
+}

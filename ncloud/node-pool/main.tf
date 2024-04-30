@@ -28,8 +28,12 @@
 #   }
 # }
 
-resource "ncloud_nks_node_pool" "node_pool_autoscale_enabled" {
-  count = var.autoscale_enabled ? 1 : 0
+variable "ignore_changes_field" {
+  type = list
+  default = var.autoscale_enabled ? [node_count] : []
+}
+
+resource "ncloud_nks_node_pool" "node_pool" {
   cluster_uuid = var.cluster_uuid
   node_pool_name = var.node_pool_name
   node_count     = var.node_count
@@ -43,25 +47,7 @@ resource "ncloud_nks_node_pool" "node_pool_autoscale_enabled" {
     max = var.autoscale_max
   }
   lifecycle {
-    ignore_changes = [
-      node_count
-    ]
-  }
-}
-
-resource "ncloud_nks_node_pool" "node_pool_autoscale_disabled" {
-  count = var.autoscale_enabled ? 0 : 1
-  cluster_uuid = var.cluster_uuid
-  node_pool_name = var.node_pool_name
-  node_count     = var.node_count
-  software_code  = var.software_code
-  product_code   = var.product_code
-  k8s_version   = var.k8s_version
-  # subnet_no_list = [var.node_subnet_id]
-  autoscale {
-    enabled = var.autoscale_enabled
-    min = var.autoscale_min
-    max = var.autoscale_max
+    ignore_changes = var.ignore_changes_field
   }
 }
 
